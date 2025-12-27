@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 2026</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:url("download (4).jpeg") no-repeat center/cover;
+  font-family: Arial, sans-serif;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+/* overlay */
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+}
+
+/* TOP CONTENT */
+.content{
+  position:absolute;
+  top:5%;
+  width:100%;
+  text-align:center;
+  z-index:3;
+}
+
+/* year text */
+.year{
+  font-size:80px;
+  font-weight:bold;
+  color:rgb(241, 241, 239);
+  text-shadow:0 0 20px rgb(255, 254, 251),0 0 40px red;
+  transition:all 3s ease;
+}
+
+/* message */
+.msg{
+  margin-top:10px;
+  font-size:22px;
+  color:white;
+  opacity:0;
+  transition:opacity 2s;
+}
+
+/* bubbles */
+.bubble{
+  position:absolute;
+  bottom:-20px;
+  border-radius:50%;
+  animation:rise linear infinite;
+}
+
+@keyframes rise{
+  from{ transform:translateY(0); opacity:1; }
+  to{ transform:translateY(-900px); opacity:0; }
+}
+
+/* fireworks */
+.firework{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:blast 1.5s ease-out forwards;
+}
+
+@keyframes blast{
+  from{ transform:scale(0); opacity:1; }
+  to{ transform:scale(15); opacity:0; }
+}
+</style>
+</head>
+
+<body onclick="playSong()">
+
+<div class="overlay"></div>
+
+<!-- TOP TEXT -->
+<div class="content">
+  <div id="year" class="year">2025</div>
+  <div id="msg" class="msg">✨ Wishing you Joy, Success & Happiness ✨</div>
+</div>
+
+<audio id="song">
+  <source src="Happy New Year Song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// 2025 fade
+setTimeout(()=>{
+  year.style.opacity="0";
+  year.style.transform="scale(0.7)";
+},3000);
+
+// 2026 appear
+setTimeout(()=>{
+  year.innerHTML="🎉 Happy New Year 2026 🎉";
+  year.style.opacity="1";
+  year.style.transform="scale(1.05)";
+  msg.style.opacity="1";
+  startBubbles();
+  startFireworks();
+},6500);
+
+// colour changing bubbles
+function startBubbles(){
+  setInterval(()=>{
+    for(let i=0;i<5;i++){
+      let b=document.createElement("div");
+      b.className="bubble";
+      let size=Math.random()*10+6;
+      b.style.width=size+"px";
+      b.style.height=size+"px";
+      b.style.left=Math.random()<0.5
+        ? Math.random()*12+"%"
+        : 88+Math.random()*12+"%";
+      b.style.background=`hsl(${Math.random()*360},100%,60%)`;
+      b.style.animationDuration=(Math.random()*3+4)+"s";
+      document.body.appendChild(b);
+      setTimeout(()=>b.remove(),7000);
+    }
+  },700);
+}
+
+// fireworks blast
+function startFireworks(){
+  setInterval(()=>{
+    let f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*80+10+"%";
+    f.style.top=Math.random()*40+10+"%";
+    f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
+  },900);
+}
+
+// play song
+function playSong(){
+  document.getElementById("song").play();
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
